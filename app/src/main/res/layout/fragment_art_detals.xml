@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <ImageView
+        android:id="@+id/artimageView2"
+        android:layout_width="300dp"
+        android:layout_height="200dp"
+        android:layout_marginTop="60dp"
+        android:layout_margin="20dp"
+        android:layout_gravity="center"
+        app:srcCompat="@drawable/common_google_signin_btn_icon_dark_focused" />
+
+
+    <EditText
+        android:id="@+id/nameText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="70dp"
+        android:layout_marginEnd="70dp"
+        android:layout_marginBottom="9dp"
+        android:ems="10"
+        android:hint="Enter Name"
+        android:inputType="textPersonName"
+        android:textColorHint="#787373"
+        />
+
+
+    <EditText
+        android:id="@+id/artisText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="70dp"
+        android:layout_marginEnd="70dp"
+        android:layout_marginBottom="9dp"
+        android:ems="10"
+        android:hint="Enter Artist"
+        android:inputType="textPersonName"
+        android:textColorHint="#787373"
+      />
+    <EditText
+        android:id="@+id/yearText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="70dp"
+        android:layout_marginEnd="70dp"
+        android:layout_marginBottom="9dp"
+        android:ems="10"
+        android:hint="Enter Year"
+        android:inputType="textPersonName"
+        android:textColorHint="#787373"
+        />
+
+
+    <Button
+        android:id="@+id/Savebutton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:text="Save"
+       />
+</LinearLayout>

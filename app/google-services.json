@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "60666625117",
+    "project_id": "art-book-27f36",
+    "storage_bucket": "art-book-27f36.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:60666625117:android:1bdda141c2a019dbc761b4",
+        "android_client_info": {
+          "package_name": "com.example.myapplication"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "60666625117-okh0dbhci3tdq54vlphs8e2f80serafh.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBbbI9sNZXFzm9LZf-UBwAArGNVFc078yM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "60666625117-okh0dbhci3tdq54vlphs8e2f80serafh.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
