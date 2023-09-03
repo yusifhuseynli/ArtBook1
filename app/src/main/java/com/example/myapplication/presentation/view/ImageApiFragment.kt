@@ -1,4 +1,4 @@
-package com.example.myapplication.view
+package com.example.myapplication.presentation.view
 
 import android.os.Bundle
 import android.view.View
@@ -9,11 +9,11 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
-import com.example.myapplication.Adapter.ImageRecyclerAdapter
+import com.example.myapplication.presentation.view.Adapter.ImageRecyclerAdapter
 import com.example.myapplication.R
 import com.example.myapplication.databinding.FragmentImageApiBinding
-import com.example.myapplication.util.Status
-import com.example.myapplication.viewmodel.ArtViewModel
+import com.example.myapplication.domain.util.Status
+import com.example.myapplication.presentation.view.viewmodel.ArtViewModel
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -23,7 +23,7 @@ class ImageApiFragment @Inject constructor(
     private val imageRecyclerAdapter: ImageRecyclerAdapter
 
 ):Fragment(R.layout.fragment_image_api) {
-    lateinit var viewModel:ArtViewModel
+    lateinit var viewModel: ArtViewModel
     private var fragmentBinding:FragmentImageApiBinding?=null
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -49,7 +49,7 @@ class ImageApiFragment @Inject constructor(
         subscribeToObserves()
 
         binding.imageRecyclerView.adapter=imageRecyclerAdapter
-        binding.imageRecyclerView.layoutManager=GridLayoutManager(requireContext(),3)
+        binding.imageRecyclerView.layoutManager=GridLayoutManager(requireContext(),2)
         imageRecyclerAdapter.setOnItemClickListener {
         findNavController().popBackStack()
             viewModel.setSelectedImage(it)

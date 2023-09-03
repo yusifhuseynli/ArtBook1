@@ -1,7 +1,7 @@
-package com.example.myapplication.api
+package com.example.myapplication.data.model.api
 
-import com.example.myapplication.model.ImageResponse
-import com.example.myapplication.util.Util.API_KEY
+import com.example.myapplication.data.model.ImageResponse
+import com.example.myapplication.domain.util.Util.API_KEY
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Query

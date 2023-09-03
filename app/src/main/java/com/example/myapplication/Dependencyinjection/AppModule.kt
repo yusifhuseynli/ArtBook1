@@ -5,12 +5,12 @@ import androidx.room.Room
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.example.myapplication.R
-import com.example.myapplication.api.RetrofitAPI
-import com.example.myapplication.repo.ArtRepository
-import com.example.myapplication.repo.ArtRepositoryinterface
+import com.example.myapplication.data.model.api.RetrofitAPI
+import com.example.myapplication.data.model.repo.ArtRepository
+import com.example.myapplication.data.model.repo.ArtRepositoryinterface
 import com.example.myapplication.roomdb.ArtDao
 import com.example.myapplication.roomdb.ArtDatabase
-import com.example.myapplication.util.Util.Base_URL
+import com.example.myapplication.domain.util.Util.Base_URL
 import dagger.Binds
 import dagger.Module
 import dagger.Provides
@@ -41,7 +41,7 @@ object AppModule {
 
     @Singleton
     @Provides
-    fun injectRetrofitAPI():RetrofitAPI{
+    fun injectRetrofitAPI(): RetrofitAPI {
         return Retrofit.Builder()
             .addConverterFactory(GsonConverterFactory.create())
             .baseUrl(Base_URL).build()
@@ -50,7 +50,8 @@ object AppModule {
     @Singleton
     @Provides
     @Named("normal")
-    fun injectNormalRepo(dao:ArtDao,api: RetrofitAPI)=ArtRepository(dao,api) as ArtRepositoryinterface
+    fun injectNormalRepo(dao:ArtDao,api: RetrofitAPI)=
+        ArtRepository(dao,api) as ArtRepositoryinterface
 
     @Singleton
     @Provides

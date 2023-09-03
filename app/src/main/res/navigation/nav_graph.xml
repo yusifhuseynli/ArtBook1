@@ -3,11 +3,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/singInFragment">
+    app:startDestination="@id/splashFragment">
 
     <fragment
         android:id="@+id/artFragment"
-        android:name="com.example.myapplication.view.ArtFragment"
+        android:name="com.example.myapplication.presentation.view.ArtFragment"
         android:label="ArtFragment"
         tools:layout="@layout/fragment_arts">
         <action
@@ -16,10 +16,13 @@
         <action
             android:id="@+id/action_artFragment_to_singInFragment"
             app:destination="@id/singInFragment" />
+        <action
+            android:id="@+id/action_artFragment_to_artProfilFragment"
+            app:destination="@id/artProfilFragment" />
     </fragment>
     <fragment
         android:id="@+id/artDetailesFragment"
-        android:name="com.example.myapplication.view.ArtDetailesFragment"
+        android:name="com.example.myapplication.presentation.view.ArtDetailesFragment"
         android:label="ArtDetailesFragment"
         tools:layout="@layout/fragment_art_detals">
 
@@ -29,7 +32,7 @@
     </fragment>
     <fragment
         android:id="@+id/imageApiFragment"
-        android:name="com.example.myapplication.view.ImageApiFragment"
+        android:name="com.example.myapplication.presentation.view.ImageApiFragment"
         android:label="ImageApiFragment"
         tools:layout="@layout/fragment_image_api">
         <action
@@ -38,13 +41,31 @@
     </fragment>
     <fragment
         android:id="@+id/singInFragment"
-        android:name="com.example.myapplication.view.SingInFragment"
+        android:name="com.example.myapplication.presentation.view.SingInFragment"
         android:label="SingInFragment"
         tools:layout="@layout/fragment_sing_in">
         <action
             android:id="@+id/action_singInFragment_to_artFragment"
             app:destination="@id/artFragment"
             />
+    </fragment>
+    <fragment
+        android:id="@+id/artProfilFragment"
+        android:name="com.example.myapplication.presentation.view.ArtProfilFragment"
+        android:label="fragment_art_profil"
+        tools:layout="@layout/fragment_art_profil" >
+        <action
+            android:id="@+id/action_artProfilFragment_to_artFragment"
+            app:destination="@id/artFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/splashFragment"
+        android:name="com.example.myapplication.presentation.view.viewmodel.SplashFragment"
+        android:label="fragment_splash"
+        tools:layout="@layout/fragment_splash" >
+        <action
+            android:id="@+id/action_splashFragment_to_singInFragment"
+            app:destination="@id/singInFragment" />
     </fragment>
 
 </navigation>

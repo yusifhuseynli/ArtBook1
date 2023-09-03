@@ -1,4 +1,4 @@
-package com.example.myapplication.Adapter
+package com.example.myapplication.presentation.view.Adapter
 
 import android.view.LayoutInflater
 import android.view.View

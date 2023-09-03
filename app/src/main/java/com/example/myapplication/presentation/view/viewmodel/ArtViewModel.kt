@@ -1,13 +1,13 @@
-package com.example.myapplication.viewmodel
+package com.example.myapplication.presentation.view.viewmodel
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.myapplication.model.ImageResponse
-import com.example.myapplication.repo.ArtRepositoryinterface
+import com.example.myapplication.data.model.ImageResponse
+import com.example.myapplication.data.model.repo.ArtRepositoryinterface
 import com.example.myapplication.roomdb.Art
-import com.example.myapplication.util.Resource
+import com.example.myapplication.domain.util.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -72,7 +72,7 @@ class ArtViewModel @Inject constructor(
         if (searchString.isEmpty()){
             return
         }
-        images.value=Resource.loading(null)
+        images.value= Resource.loading(null)
         viewModelScope.launch {
             val response=repository.searchImage(searchString)
             images.value=response

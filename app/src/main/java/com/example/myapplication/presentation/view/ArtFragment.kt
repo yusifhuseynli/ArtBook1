@@ -1,4 +1,4 @@
-package com.example.myapplication.view
+package com.example.myapplication.presentation.view
 
 import android.os.Bundle
 import android.view.View
@@ -10,10 +10,10 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.myapplication.Adapter.ArtRecyclerAdapter
+import com.example.myapplication.presentation.view.Adapter.ArtRecyclerAdapter
 import com.example.myapplication.R
 import com.example.myapplication.databinding.FragmentArtsBinding
-import com.example.myapplication.viewmodel.ArtViewModel
+import com.example.myapplication.presentation.view.viewmodel.ArtViewModel
 import javax.inject.Inject
 
 class ArtFragment @Inject constructor(
@@ -21,7 +21,7 @@ class ArtFragment @Inject constructor(
 ):Fragment(R.layout.fragment_arts) {
     private var fragmentBinding:FragmentArtsBinding?=null
 
-    lateinit var viewModel:ArtViewModel
+    lateinit var viewModel: ArtViewModel
 
     private val swipeCallBack=object :ItemTouchHelper.SimpleCallback(0,ItemTouchHelper.RIGHT or ItemTouchHelper.LEFT){
         override fun onMove(

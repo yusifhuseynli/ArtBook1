@@ -1,4 +1,4 @@
-package com.example.myapplication.view
+package com.example.myapplication.presentation.view
 
 import android.content.Context
 import android.content.Intent
@@ -13,7 +13,8 @@ import androidx.navigation.fragment.findNavController
 import com.example.myapplication.MainActivity
 import com.example.myapplication.R
 import com.example.myapplication.databinding.FragmentSingInBinding
-import com.example.myapplication.util.PreferenceHelper
+import com.example.myapplication.domain.util.PreferenceHelper
+import com.example.myapplication.domain.util.PreferenceHelper.set
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.SetOptions
 import com.google.firebase.firestore.ktx.firestore
@@ -47,9 +48,8 @@ class SingInFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         ////
-        sharedPreferences=PreferenceHelper.getDefault(requireActivity())
+        sharedPreferences= PreferenceHelper.getDefault(requireActivity())
 
-        sharedPreferences = requireActivity().getSharedPreferences("user_prefs", Context.MODE_PRIVATE)
 
 
 
@@ -75,7 +75,7 @@ class SingInFragment : Fragment() {
             val email = binding.editTextTextEmailAddress.text.toString().trim()
             val password = binding.editTextNumberPassword.text.toString().trim()
 
-            saveUserEmail(email)
+
 
             Firebase.auth.createUserWithEmailAndPassword(
                 email, password
@@ -94,7 +94,8 @@ class SingInFragment : Fragment() {
             //////
             Firebase.auth.signInWithEmailAndPassword(email.trim(), password.trim())
                 .addOnSuccessListener {
-
+                 sharedPreferences["email"] = email
+                    sharedPreferences["passwoed"] = password
 
                     activity?.let {
                         val intent = Intent(it, MainActivity::class.java)
@@ -111,11 +112,7 @@ class SingInFragment : Fragment() {
 
     }
 
-    private fun saveUserEmail(email: String) {
-        val editor = sharedPreferences.edit()
-        editor.putString("user_email", email)
-        editor.apply()
-    }
+
 
 
 }

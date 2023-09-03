@@ -1,7 +1,7 @@
 package com.example.myapplication.Dependencyinjection
 
-import com.example.myapplication.repo.ArtRepository
-import com.example.myapplication.repo.ArtRepositoryinterface
+import com.example.myapplication.data.model.repo.ArtRepository
+import com.example.myapplication.data.model.repo.ArtRepositoryinterface
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn

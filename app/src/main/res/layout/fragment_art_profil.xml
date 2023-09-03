@@ -1,14 +1,64 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".view.ArtProfilFragment">
+    tools:context=".presentation.view.ArtProfilFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
 
-</FrameLayout>
+   <com.google.android.material.imageview.ShapeableImageView
+       android:id="@+id/Profile_imageView"
+       android:layout_width="206dp"
+       android:layout_height="180dp"
+       android:layout_marginTop="164dp"
+       app:shapeAppearanceOverlay="@style/ShapeAppearance.Material3.Corner.Large"
+       android:src="@drawable/baseline_person_24"
+       app:layout_constraintEnd_toEndOf="parent"
+       app:layout_constraintHorizontal_bias="0.497"
+       app:layout_constraintStart_toStartOf="parent"
+       app:layout_constraintTop_toTopOf="parent"
+       tools:ignore="MissingConstraints" />
+
+   <EditText
+       android:id="@+id/Profile_editTextText_name"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:layout_marginTop="16dp"
+       android:ems="10"
+       android:hint="Name"
+       android:inputType="text"
+       app:layout_constraintEnd_toEndOf="@+id/Profile_imageView"
+       app:layout_constraintHorizontal_bias="0.0"
+       app:layout_constraintStart_toStartOf="@+id/Profile_imageView"
+       app:layout_constraintTop_toBottomOf="@+id/Profile_imageView" />
+
+   <EditText
+       android:id="@+id/Profile_editTextTextPassword"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:layout_marginTop="12dp"
+       android:ems="10"
+       android:hint="Surname"
+       android:inputType="textPassword"
+       app:layout_constraintEnd_toEndOf="@+id/Profile_editTextText_name"
+       app:layout_constraintStart_toStartOf="@+id/Profile_editTextText_name"
+       app:layout_constraintTop_toBottomOf="@+id/Profile_editTextText_name" />
+
+   <Button
+       android:id="@+id/button3"
+       android:layout_width="108dp"
+       android:layout_height="46dp"
+       android:layout_marginBottom="13dp"
+       android:backgroundTint="#03A9F4"
+       android:text="Exit"
+       app:layout_constraintBottom_toBottomOf="parent"
+       app:layout_constraintEnd_toEndOf="parent"
+       app:layout_constraintHorizontal_bias="0.498"
+       app:layout_constraintStart_toStartOf="parent"
+       app:layout_constraintTop_toBottomOf="@+id/Profile_editTextTextPassword"
+       app:layout_constraintVertical_bias="0.665" />
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

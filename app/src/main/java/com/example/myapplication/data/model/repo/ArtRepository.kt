@@ -1,13 +1,13 @@
-package com.example.myapplication.repo
+package com.example.myapplication.data.model.repo
 
 import android.util.Log
 import android.widget.Toast
 import androidx.lifecycle.LiveData
-import com.example.myapplication.api.RetrofitAPI
-import com.example.myapplication.model.ImageResponse
+import com.example.myapplication.data.model.api.RetrofitAPI
+import com.example.myapplication.data.model.ImageResponse
 import com.example.myapplication.roomdb.Art
 import com.example.myapplication.roomdb.ArtDao
-import com.example.myapplication.util.Resource
+import com.example.myapplication.domain.util.Resource
 import javax.inject.Inject
 import kotlin.math.log
 
@@ -15,7 +15,7 @@ class ArtRepository @Inject constructor(
     private val artDao:ArtDao,
     private val retrofitAPI: RetrofitAPI
 
-                                        ):ArtRepositoryinterface {
+                                        ): ArtRepositoryinterface {
     override suspend fun insertArt(art: Art) {
         artDao.insertArt(art)
     }
@@ -39,7 +39,7 @@ class ArtRepository @Inject constructor(
               response.body()?.let {
 
                   return@let Resource.success(it)
-              }  ?:Resource.error("Error",null)
+              }  ?: Resource.error("Error",null)
             } else{
                 Resource.error("ERROR",null)
             }

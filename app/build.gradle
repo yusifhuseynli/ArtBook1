@@ -41,6 +41,7 @@ android {
     }
     buildFeatures{
         viewBinding true
+        dataBinding true
     }
 }
 
@@ -64,6 +65,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-database-ktx:20.2.2'
     implementation 'com.google.firebase:firebase-storage-ktx:20.2.1'
     implementation 'com.google.firebase:firebase-firestore-ktx:24.7.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
 
     def nav_version = '2.6.0'
     //Hilt

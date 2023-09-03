@@ -1,17 +1,22 @@
-package com.example.myapplication.view
+package com.example.myapplication
 
+import android.annotation.SuppressLint
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import android.view.WindowManager
-import android.widget.Toast
-import androidx.fragment.app.FragmentFactory
-import com.example.myapplication.R
-import com.example.myapplication.databinding.ActivityMainBinding
-import com.google.firebase.auth.FirebaseAuthEmailException
-import com.google.firebase.auth.ktx.auth
-import com.google.firebase.firestore.SetOptions
-import com.google.firebase.firestore.ktx.firestore
-import com.google.firebase.ktx.Firebase
+import androidx.fragment.app.Fragment
+import androidx.navigation.NavController
+import androidx.navigation.Navigation
+import androidx.navigation.findNavController
+import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.ui.AppBarConfiguration
+import androidx.navigation.ui.NavigationUI
+import androidx.navigation.ui.setupActionBarWithNavController
+import androidx.navigation.ui.setupWithNavController
+import com.example.myapplication.presentation.view.ArtFragmentFactory
+import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.android.material.navigation.NavigationView
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -21,67 +26,41 @@ class MainActivity : AppCompatActivity() {
 
 
     @Inject
-    lateinit var fragmentFactory:ArtFragmentFactory
- //   private lateinit var binding: ActivityMainBinding
+    lateinit var fragmentFactory: ArtFragmentFactory
+   // private lateinit var binding: ActivityMainBinding
+    @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-     setContentView(R.layout.activity_main)
+        setContentView(R.layout.activity_main)
+   //    binding= ActivityMainBinding.inflate(layoutInflater)
+   //     setContentView(binding.root)
      supportFragmentManager.fragmentFactory = fragmentFactory
+
+      val NavView:BottomNavigationView=findViewById(R.id.bottomNavigationView)
+      val navHostFragment =
+          supportFragmentManager.findFragmentById(R.id.fragmentContainerView) as NavHostFragment
+      val navController = navHostFragment.navController
+      NavigationUI.setupWithNavController(NavView, navController)
+
+
+      navController.addOnDestinationChangedListener { _, destination, _ ->
+          when (destination.id) {
+              R.id.artFragment,
+              R.id.artProfilFragment,
+              R.id.artDetailesFragment,
+
+              -> NavView.visibility = View.VISIBLE
+
+              else -> NavView.visibility = View.GONE
+          }
+      }
+
 
      //ashaqdaki kod enter basanda yeni setre kecmeye komek edit
      getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN)
 
 
 
-//        binding= ActivityMainBinding.inflate(layoutInflater)
-//        setContentView(binding.root)
-//        binding.button2.setOnClickListener {
-
-        //    val email=binding.editTextTextEmailAddress.text.toString().trim()
-        //    val password=binding.editTextNumberPassword.text.toString().trim()
-
-
-//            Firebase.auth.createUserWithEmailAndPassword(
-//                email,password)
-//                .addOnSuccessListener {
-//                val hmap= hashMapOf<String,Any>()
-//                    hmap["email"]=email
-//                    hmap["password"]=password
-//                    Firebase.firestore.collection("Users").document(Firebase.auth.currentUser!!.uid).set(hmap)
-//
-//            }.addOnFailureListener {
-//                Toast.makeText(this,it.localizedMessage,Toast.LENGTH_SHORT).show()
-//
-//            }
-//        }
-
-
-
-//        Firebase.auth.createUserWithEmailAndPassword("yusif3@gmail.ru","12340669").addOnSuccessListener {
-//            creadetData()
-//            Toast.makeText(this,"User created",Toast.LENGTH_SHORT).show()
-//
-//        }.addOnFailureListener {
-//            Toast.makeText(this,"User not created",Toast.LENGTH_SHORT).show()
-//        }
-//        Firebase.auth.currentUser!!.uid
-//    }
-
-
-
-//    fun creadetData(){
-//        val hmap= hashMapOf<String,Any>()
-//    val keyHmap=hashMapOf<String,Any>()
-//    keyHmap["ic-ice-hmap"]=hmap
-//        hmap["yusif"]="tenbel"
-//        hmap["agabey"]=1000000
-//        Firebase.firestore.collection("User").document("hmaopss").set(keyHmap, SetOptions.merge())
-//            .addOnSuccessListener {
-//
-//            }.addOnFailureListener {
-//
-//            }
-//    }
 
     }
 }

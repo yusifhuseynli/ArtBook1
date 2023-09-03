@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/app_them"
-    tools:context=".view.MainActivity">
+    tools:context=".MainActivity">
 
 
     <androidx.constraintlayout.widget.Guideline
@@ -67,8 +67,10 @@
                 app:cornerRadius="16dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/editTextNumberPassword" />
+                app:layout_constraintTop_toBottomOf="@+id/editTextNumberPassword"
+                app:layout_constraintVertical_bias="0.327" />
 
             <EditText
                 android:id="@+id/editTextNumberPassword"

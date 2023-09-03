@@ -1,4 +1,4 @@
-package com.example.myapplication.view
+package com.example.myapplication.presentation.view
 
 import android.os.Bundle
 import android.view.View
@@ -11,14 +11,15 @@ import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.RequestManager
 import com.example.myapplication.R
 import com.example.myapplication.databinding.FragmentArtDetalsBinding
-import com.example.myapplication.util.Status
-import com.example.myapplication.viewmodel.ArtViewModel
+import com.example.myapplication.domain.util.Status
+
+import com.example.myapplication.presentation.view.viewmodel.ArtViewModel
 import javax.inject.Inject
 
 class ArtDetailesFragment  @Inject constructor(
     val glide:RequestManager
 ):Fragment(R.layout.fragment_art_detals) {
-    lateinit var viewModel:ArtViewModel
+    lateinit var viewModel: ArtViewModel
 
 
     private var fragmentBinding:FragmentArtDetalsBinding?=null
@@ -34,13 +35,7 @@ class ArtDetailesFragment  @Inject constructor(
             findNavController().navigate(ArtDetailesFragmentDirections.actionArtDetailesFragmentToImageApiFragment())
 
         }
-        val callback= object:OnBackPressedCallback(true){
-            override fun handleOnBackPressed() {
-                findNavController().popBackStack()
-            }
 
-        }
-        requireActivity().onBackPressedDispatcher.addCallback(callback)
         binding.Savebutton.setOnClickListener{
             viewModel.makeArt(
                 binding.nameText.text.toString(),
