@@ -1,16 +1,19 @@
 package com.example.myapplication.view
 
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.WindowManager
 import android.widget.Toast
 import androidx.navigation.fragment.findNavController
+import com.example.myapplication.MainActivity
 import com.example.myapplication.R
 import com.example.myapplication.databinding.FragmentSingInBinding
+import com.example.myapplication.util.PreferenceHelper
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.SetOptions
 import com.google.firebase.firestore.ktx.firestore
@@ -19,6 +22,8 @@ import com.google.firebase.ktx.Firebase
 
 class SingInFragment : Fragment() {
     private lateinit var binding: FragmentSingInBinding
+    ///
+    private lateinit var sharedPreferences: SharedPreferences
 
 
 
@@ -41,6 +46,13 @@ class SingInFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        ////
+        sharedPreferences=PreferenceHelper.getDefault(requireActivity())
+
+        sharedPreferences = requireActivity().getSharedPreferences("user_prefs", Context.MODE_PRIVATE)
+
+
+
 
         binding = FragmentSingInBinding.inflate(inflater,container,false)
        /**ddeishiklikler**/
@@ -63,6 +75,7 @@ class SingInFragment : Fragment() {
             val email = binding.editTextTextEmailAddress.text.toString().trim()
             val password = binding.editTextNumberPassword.text.toString().trim()
 
+            saveUserEmail(email)
 
             Firebase.auth.createUserWithEmailAndPassword(
                 email, password
@@ -78,11 +91,30 @@ class SingInFragment : Fragment() {
                     Toast.makeText(requireContext(), it.localizedMessage, Toast.LENGTH_SHORT).show()
 
                 }
+            //////
+            Firebase.auth.signInWithEmailAndPassword(email.trim(), password.trim())
+                .addOnSuccessListener {
+
+
+                    activity?.let {
+                        val intent = Intent(it, MainActivity::class.java)
+                        it.finish()
+                        it.startActivity(intent)
+                    }
+
+                }
+            //////
         }
         
         // Inflate the layout for this fragment
         return binding.root
 
+    }
+
+    private fun saveUserEmail(email: String) {
+        val editor = sharedPreferences.edit()
+        editor.putString("user_email", email)
+        editor.apply()
     }
 
 

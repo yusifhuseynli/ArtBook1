@@ -11,7 +11,6 @@ import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.RequestManager
 import com.example.myapplication.R
 import com.example.myapplication.databinding.FragmentArtDetalsBinding
-import com.example.myapplication.databinding.FragmentArtsBinding
 import com.example.myapplication.util.Status
 import com.example.myapplication.viewmodel.ArtViewModel
 import javax.inject.Inject

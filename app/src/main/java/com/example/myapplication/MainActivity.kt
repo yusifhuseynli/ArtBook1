@@ -19,6 +19,7 @@ import javax.inject.Inject
 class MainActivity : AppCompatActivity() {
 
 
+
     @Inject
     lateinit var fragmentFactory:ArtFragmentFactory
  //   private lateinit var binding: ActivityMainBinding
@@ -29,6 +30,8 @@ class MainActivity : AppCompatActivity() {
 
      //ashaqdaki kod enter basanda yeni setre kecmeye komek edit
      getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN)
+
+
 
 //        binding= ActivityMainBinding.inflate(layoutInflater)
 //        setContentView(binding.root)
