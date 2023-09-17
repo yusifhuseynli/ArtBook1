@@ -1,7 +1,9 @@
+@file:Suppress("ControlFlowWithEmptyBody")
+
 package com.example.myapplication.presentation.view
 
+import android.annotation.SuppressLint
 import android.content.Context
-import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -9,14 +11,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.navigation.fragment.findNavController
-import com.example.myapplication.MainActivity
+import androidx.activity.addCallback
+import androidx.navigation.Navigation
 import com.example.myapplication.R
+import com.example.myapplication.data.model.User
 import com.example.myapplication.databinding.FragmentSingInBinding
-import com.example.myapplication.domain.util.PreferenceHelper
-import com.example.myapplication.domain.util.PreferenceHelper.set
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
-import com.google.firebase.firestore.SetOptions
+import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 
@@ -26,92 +28,239 @@ class SingInFragment : Fragment() {
     ///
     private lateinit var sharedPreferences: SharedPreferences
 
-
-
-    fun creadetData() {
-        val hmap = hashMapOf<String, Any>()
-        val keyHmap = hashMapOf<String, Any>()
-        keyHmap["ic-ice-hmap"] = hmap
-        hmap["yusif"] = "tenbel"
-        hmap["agabey"] = 1000000
-        Firebase.firestore.collection("User").document("hmaopss").set(keyHmap, SetOptions.merge())
-            .addOnSuccessListener {
-
-            }.addOnFailureListener {
-
-            }
-    }
-
+    private lateinit var auth: FirebaseAuth
+    private lateinit var authStateListener: FirebaseAuth.AuthStateListener
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        ////
-        sharedPreferences= PreferenceHelper.getDefault(requireActivity())
+    ): View {
+
+        binding = FragmentSingInBinding.inflate(inflater, container, false)
+        sharedPreferences = requireActivity().getSharedPreferences("MyPrefs", Context.MODE_PRIVATE)
+        return binding.root
 
 
+    }
+
+    @SuppressLint("SuspiciousIndentation")
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        // Retrieve stored user credentials from SharedPreferences
+        val storedEmail = sharedPreferences.getString("email", null)
+        val storedPassword = sharedPreferences.getString("password", null)
+        storedEmail?.let { binding.editTextTextEmailAddress.setText(it) }
+        // Set retrieved data
+        storedPassword.let { binding.editTextNumberPassword.setText(it) }
+
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
+
+            requireActivity().finish()
+        }
+
+        val currentUser = FirebaseAuth.getInstance().currentUser
+        val userDocumentRef = FirebaseFirestore.getInstance().collection("users").document(currentUser?.uid ?: "")
+
+        userDocumentRef.addSnapshotListener { documentSnapshot, error ->
+            if (error != null) {
+                // Handle error
+                return@addSnapshotListener
+            }
+
+            if (documentSnapshot != null && documentSnapshot.exists()) {
+                documentSnapshot.getString("email")
+                documentSnapshot.getString("password")
+                // Update UI with retrieved data
+            }
+        }
 
 
+        binding = FragmentSingInBinding.bind(view)
+        auth = FirebaseAuth.getInstance()
 
-        binding = FragmentSingInBinding.inflate(inflater,container,false)
-       /**ddeishiklikler**/
-       binding.button.setOnClickListener {
-           val email = binding.editTextTextEmailAddress.text.toString().trim()
-           val password = binding.editTextNumberPassword.text.toString().trim()
+        authStateListener = FirebaseAuth.AuthStateListener { firebaseAuth ->
+            val user = firebaseAuth.currentUser
+            if (user != null) {
+                // User is signed in
+                // Proceed with your app logic
+            } else {
+                // User is signed out
+                // Handle UI changes or re-authentication if necessary
+            }
+        }
 
-           Firebase.auth.signInWithEmailAndPassword(email, password).addOnSuccessListener {
-              findNavController().navigate(R.id.action_singInFragment_to_artFragment)
 
-           }.addOnFailureListener {
-               Toast.makeText(requireContext(), it.localizedMessage, Toast.LENGTH_SHORT).show()
+        binding.button.setOnClickListener {
 
-           }
 
-       }
-        // buracan
+            if (
+                binding.editTextTextEmailAddress.text!!.isNotEmpty() && binding.editTextNumberPassword.text!!.isNotEmpty()
+            ) {
+
+                signinUser(binding.editTextTextEmailAddress.text.toString(),
+                    binding.editTextNumberPassword.text.toString())
+
+
+            }
+
+        }
+
         binding.button2.setOnClickListener {
-
             val email = binding.editTextTextEmailAddress.text.toString().trim()
-            val password = binding.editTextNumberPassword.text.toString().trim()
-
-
+          val password = binding.editTextNumberPassword.text.toString().trim()
 
             Firebase.auth.createUserWithEmailAndPassword(
                 email, password
-            )
+           )
                 .addOnSuccessListener {
-                    val hmap = hashMapOf<String, Any>()
-                    hmap["email"] = email
-                    hmap["password"] = password
-                    Firebase.firestore.collection("Users").document(Firebase.auth.currentUser!!.uid)
-                        .set(hmap)
+                    Firebase.firestore.collection("user").document(Firebase.auth.currentUser!!.uid)
+                        .set(User("","","",email,password, "https://firebasestorage.googleapis.com/v0/b/art-book-27f36.appspot.com/o/images%2Fphoto-1511367461989-f85a21fda167.jpg?alt=media&token=33183012-a44e-44b8-954f-8a77ac56cb33"
+                        ))
 
                 }.addOnFailureListener {
                     Toast.makeText(requireContext(), it.localizedMessage, Toast.LENGTH_SHORT).show()
 
                 }
-            //////
-            Firebase.auth.signInWithEmailAndPassword(email.trim(), password.trim())
-                .addOnSuccessListener {
-                 sharedPreferences["email"] = email
-                    sharedPreferences["passwoed"] = password
-
-                    activity?.let {
-                        val intent = Intent(it, MainActivity::class.java)
-                        it.finish()
-                        it.startActivity(intent)
-                    }
-
-                }
-            //////
         }
-        
-        // Inflate the layout for this fragment
-        return binding.root
 
     }
 
+    private fun signinUser(email: String, password: String) {
+
+        auth.signInWithEmailAndPassword(email, password)
+            .addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+
+
+                    val editor = sharedPreferences.edit()
+                    editor.putString("email", email)
+                    editor.putString("password", password)
+                    editor.putBoolean("Loggedin", true)
+                    editor.apply()
+
+
+                    Navigation.findNavController(requireActivity(), R.id.fragmentContainerView)
+                        .navigate(R.id.action_singInFragment_to_artFragment)
+                }
+
+
+            }.addOnFailureListener {
+                Toast.makeText(requireContext(), it.localizedMessage, Toast.LENGTH_SHORT).show()
+            }
+
+    }
+
+    override fun onStart() {
+        super.onStart()
+        auth.addAuthStateListener(authStateListener)
+    }
+
+    override fun onStop() {
+        super.onStop()
+        auth.removeAuthStateListener(authStateListener)
+    }
+
+
+
+//    fun creadetData() {
+//        val hmap = hashMapOf<String, Any>()
+//        val keyHmap = hashMapOf<String, Any>()
+//        keyHmap["ic-ice-hmap"] = hmap
+//        hmap["yusif"] = "tenbel"
+//        hmap["agabey"] = 1000000
+//        Firebase.firestore.collection("User").document("hmaopss").set(keyHmap, SetOptions.merge())
+//            .addOnSuccessListener {
+//
+//            }.addOnFailureListener {
+//
+//            }
+//    }
+//
+//
+//    override fun onCreateView(
+//        inflater: LayoutInflater, container: ViewGroup?,
+//        savedInstanceState: Bundle?
+//    ): View? {
+//        //yeni
+//         binding=FragmentSingInBinding.inflate(inflater,container,false)
+//        sharedPreferences= PreferenceHelper.getDefault(requireActivity())
+//
+//        val savedEmail=sharedPreferences.getString("email",null)
+//        val savedPassword=sharedPreferences.getString("password",null)
+//
+//        savedEmail?.let {
+//            binding.editTextTextEmailAddress.setText(it)
+//        }
+//        savedPassword.let {
+//            binding.editTextNumberPassword.setText(it)
+//        }
+//
+//
+////yeni
+//
+//
+//        binding = FragmentSingInBinding.inflate(inflater,container,false)
+//       /**ddeishiklikler**/
+//       binding.button.setOnClickListener {
+//           val email = binding.editTextTextEmailAddress.text.toString().trim()
+//           val password = binding.editTextNumberPassword.text.toString().trim()
+//
+//           Firebase.auth.signInWithEmailAndPassword(email, password).addOnSuccessListener {
+//              findNavController().navigate(R.id.action_singInFragment_to_artFragment)
+//
+//           }.addOnFailureListener {
+//               Toast.makeText(requireContext(), it.localizedMessage, Toast.LENGTH_SHORT).show()
+//
+//           }
+//
+//       }
+//        // buracan
+//        binding.button2.setOnClickListener {
+//
+//            val email = binding.editTextTextEmailAddress.text.toString().trim()
+//            val password = binding.editTextNumberPassword.text.toString().trim()
+//
+//
+//
+//            Firebase.auth.createUserWithEmailAndPassword(
+//                email, password
+//            )
+//                .addOnSuccessListener {
+//                    val hmap = hashMapOf<String, Any>()
+//                    hmap["email"] = email
+//                    hmap["password"] = password
+//                    Firebase.firestore.collection("Users").document(Firebase.auth.currentUser!!.uid)
+//                        .set(hmap)
+//
+//                }.addOnFailureListener {
+//                    Toast.makeText(requireContext(), it.localizedMessage, Toast.LENGTH_SHORT).show()
+//
+//                }
+//            //////
+//            Firebase.auth.signInWithEmailAndPassword(email.trim(), password.trim())
+//                .addOnSuccessListener {
+//                 sharedPreferences["email"] = email
+//                    sharedPreferences["passwoed"] = password
+//
+//                    activity?.let {
+//                        val intent = Intent(it, MainActivity::class.java)
+//                        it.finish()
+//                        it.startActivity(intent)
+//                    }
+//
+//                }
+//
+//
+//        }
+//
+//        // Inflate the layout for this fragment
+//        return binding.root
+//
+//    }
+//
+//
 
 
 

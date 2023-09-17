@@ -29,13 +29,14 @@ object AppModule {
     @Singleton
     @Provides
     fun injectRoomDatabase(
-        @ApplicationContext context: Context)=Room.databaseBuilder(
-        context,ArtDatabase::class.java,"ArtBookDB"
-        ).build()
+        @ApplicationContext context: Context
+    ) = Room.databaseBuilder(
+        context, ArtDatabase::class.java, "ArtBookDB"
+    ).build()
 
     @Singleton
     @Provides
-    fun injectDao(database: ArtDatabase): ArtDao{
+    fun injectDao(database: ArtDatabase): ArtDao {
         return database.artDao()
     }
 
@@ -43,19 +44,20 @@ object AppModule {
     @Provides
     fun injectRetrofitAPI(): RetrofitAPI {
         return Retrofit.Builder()
-            .addConverterFactory(GsonConverterFactory.create())
-            .baseUrl(Base_URL).build()
-            .create(RetrofitAPI::class.java)
+             .addConverterFactory(GsonConverterFactory.create())
+             .baseUrl(Base_URL).build()
+             .create(RetrofitAPI::class.java)
     }
-    @Singleton
-    @Provides
-    @Named("normal")
-    fun injectNormalRepo(dao:ArtDao,api: RetrofitAPI)=
-        ArtRepository(dao,api) as ArtRepositoryinterface
 
     @Singleton
     @Provides
-    fun injectGlide(@ApplicationContext context: Context)=Glide.with(context)
+    @Named("normal")
+    fun injectNormalRepo(dao: ArtDao, api: RetrofitAPI) =
+        ArtRepository(dao, api) as ArtRepositoryinterface
+
+    @Singleton
+    @Provides
+    fun injectGlide(@ApplicationContext context: Context) = Glide.with(context)
         .setDefaultRequestOptions(
             RequestOptions().placeholder(R.drawable.ic_launcher_foreground)
                 .error(R.drawable.ic_launcher_foreground)

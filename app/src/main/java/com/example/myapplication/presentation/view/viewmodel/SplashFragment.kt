@@ -1,6 +1,8 @@
 package com.example.myapplication.presentation.view.viewmodel
 
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -17,23 +19,34 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class SplashFragment : Fragment() {
-    private lateinit var binding: FragmentSplashBinding
+    private lateinit var sharedPreferences: SharedPreferences
 
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding =FragmentSplashBinding.inflate(inflater,container,false)
+        return inflater.inflate(R.layout.fragment_splash,container,false)
+
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        sharedPreferences=requireActivity().getSharedPreferences("MyPrefs",Context.MODE_PRIVATE)
 
         val handlerr=Handler(Looper.getMainLooper())
         handlerr.postDelayed({
-            findNavController().navigate(SplashFragmentDirections.actionSplashFragmentToSingInFragment())
+            val Loggedin=sharedPreferences.getBoolean("Loggedin",false)
+            if (Loggedin) {
+                findNavController().navigate(R.id.action_splashFragment_to_artFragment2)
+            } else {
+                findNavController().navigate(R.id.action_splashFragment_to_singInFragment)
+            }
         },3000)
 
 
-        return binding.root
     }
+
 
 
 }

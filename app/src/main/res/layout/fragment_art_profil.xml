@@ -1,64 +1,125 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:orientation="vertical"
     android:layout_height="match_parent"
+    app:layout_constraintBaseline_toBaselineOf="parent"
     tools:context=".presentation.view.ArtProfilFragment">
+    <LinearLayout
+       android:layout_width="match_parent"
+       android:layout_height="match_parent"
+       android:orientation="vertical"
+        tools:ignore="ScrollViewSize">
+
+       <LinearLayout
+
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+          android:background="#DFFEE2">
+
+          <ImageView
+              android:id="@+id/image_back"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:padding="15dp"
+              android:src="@drawable/baseline_arrow_back_ios_new_24"
+              tools:ignore="ContentDescription" />
 
 
-   <com.google.android.material.imageview.ShapeableImageView
-       android:id="@+id/Profile_imageView"
-       android:layout_width="206dp"
-       android:layout_height="180dp"
-       android:layout_marginTop="164dp"
-       app:shapeAppearanceOverlay="@style/ShapeAppearance.Material3.Corner.Large"
-       android:src="@drawable/baseline_person_24"
-       app:layout_constraintEnd_toEndOf="parent"
-       app:layout_constraintHorizontal_bias="0.497"
-       app:layout_constraintStart_toStartOf="parent"
-       app:layout_constraintTop_toTopOf="parent"
-       tools:ignore="MissingConstraints" />
+       </LinearLayout>
 
-   <EditText
-       android:id="@+id/Profile_editTextText_name"
-       android:layout_width="wrap_content"
-       android:layout_height="wrap_content"
-       android:layout_marginTop="16dp"
-       android:ems="10"
-       android:hint="Name"
-       android:inputType="text"
-       app:layout_constraintEnd_toEndOf="@+id/Profile_imageView"
-       app:layout_constraintHorizontal_bias="0.0"
-       app:layout_constraintStart_toStartOf="@+id/Profile_imageView"
-       app:layout_constraintTop_toBottomOf="@+id/Profile_imageView" />
+       <RelativeLayout
 
-   <EditText
-       android:id="@+id/Profile_editTextTextPassword"
-       android:layout_width="wrap_content"
-       android:layout_height="wrap_content"
-       android:layout_marginTop="12dp"
-       android:ems="10"
-       android:hint="Surname"
-       android:inputType="textPassword"
-       app:layout_constraintEnd_toEndOf="@+id/Profile_editTextText_name"
-       app:layout_constraintStart_toStartOf="@+id/Profile_editTextText_name"
-       app:layout_constraintTop_toBottomOf="@+id/Profile_editTextText_name" />
+          android:layout_width="match_parent"
+          android:layout_height="180dp"
+         android:background="#DFFEE2"
+         android:padding="20dp">
 
-   <Button
-       android:id="@+id/button3"
-       android:layout_width="108dp"
-       android:layout_height="46dp"
-       android:layout_marginBottom="13dp"
-       android:backgroundTint="#03A9F4"
-       android:text="Exit"
-       app:layout_constraintBottom_toBottomOf="parent"
-       app:layout_constraintEnd_toEndOf="parent"
-       app:layout_constraintHorizontal_bias="0.498"
-       app:layout_constraintStart_toStartOf="parent"
-       app:layout_constraintTop_toBottomOf="@+id/Profile_editTextTextPassword"
-       app:layout_constraintVertical_bias="0.665" />
+         <com.google.android.material.imageview.ShapeableImageView
+             android:id="@+id/image_profile"
+             android:layout_width="150dp"
+             android:layout_height="160dp"
+             android:layout_centerVertical="true"
+             android:layout_centerHorizontal="true"
+             app:shapeAppearanceOverlay="@style/Circular"
+             android:foregroundGravity="top"
+             app:strokeWidth="2dp"
+             app:strokeColor="@color/purple_700"
+             android:scaleType="centerCrop"
+             android:padding="6dp"
+             android:src="@drawable/baseline_person_2_24"
+           />
 
 
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+                </RelativeLayout>
+      <LinearLayout
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:orientation="vertical"
+          android:padding="16dp">
+
+         <EditText
+
+             android:id="@+id/edittex_name"
+             android:layout_width="match_parent"
+             android:layout_height="55dp"
+             android:layout_marginBottom="10dp"
+             android:hint="Name"
+             >
+
+         </EditText>
+
+
+         <EditText
+             android:id="@+id/edittex_profile_surname"
+             android:layout_width="match_parent"
+             android:layout_height="59dp"
+             android:layout_marginBottom="10dp"
+             android:autofillHints=""
+             android:hint="Surname"
+             tools:ignore="Autofill,HardcodedText,TextFields">
+
+
+         </EditText>
+
+         <EditText
+             android:id="@+id/edittex_phone"
+             android:layout_width="match_parent"
+             android:layout_height="59dp"
+             android:layout_marginBottom="10dp"
+             android:hint="Phone number"
+            >
+
+         </EditText>
+
+         <Button
+             android:id="@+id/btn_save"
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"
+             android:backgroundTint="#0E260A"
+             android:text="Save"
+             android:textColor="@color/app_them_light"
+             app:cornerRadius="10dp" />
+
+         <Button
+             android:id="@+id/btn_logout"
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"
+             android:backgroundTint="#0E260A"
+             android:text="Log out"
+             android:textColor="@color/app_them_light"
+             app:cornerRadius="10dp"
+             tools:ignore="HardcodedText" />
+
+
+
+      </LinearLayout>
+
+         </LinearLayout>
+</ScrollView>
+
+

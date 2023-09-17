@@ -1,12 +1,11 @@
 package com.example.myapplication.presentation.view
 
+
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -37,6 +36,7 @@ class ArtFragment @Inject constructor(
             val selectedArt=artRecyclerAdapter.arts[layoutPosition]
             viewModel.deleteArt(selectedArt)
 
+
         }
 
     }
@@ -44,7 +44,7 @@ class ArtFragment @Inject constructor(
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel=ViewModelProvider(requireActivity()).get(ArtViewModel::class.java)
+        viewModel= ViewModelProvider(requireActivity())[ArtViewModel::class.java]
         val binding=FragmentArtsBinding.bind(view)
         fragmentBinding=binding
 
@@ -54,9 +54,9 @@ class ArtFragment @Inject constructor(
         ItemTouchHelper(swipeCallBack).attachToRecyclerView(binding.recyclerViewArt)
 
 
-        binding.fab.setOnClickListener{
-            findNavController().navigate(ArtFragmentDirections.actionArtFragmentToArtDetailesFragment())
-        }
+
+
+
     }
     private fun subscribeTo0bserver(){
         viewModel.artList.observe(viewLifecycleOwner,

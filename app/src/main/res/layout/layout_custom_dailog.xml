@@ -1,6 +1,78 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-             android:layout_width="match_parent"
-             android:layout_height="match_parent">
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:backgroundTint="@color/white"
+    android:layout_marginHorizontal="20dp"
+    >
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="vertical">
+   <TextView
+       android:paddingTop="5dp"
+       android:id="@+id/messagedialog"
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       android:textStyle="bold"
+       android:textColor="@color/purple_700"
+       android:text="Art Book"
+       android:gravity="center"
+       android:textSize="18sp"
+       tools:ignore="HardcodedText,MissingConstraints"/>
+        <TextView
+            android:gravity="center"
+            android:text="Are you sure you want to delete?"
+            android:textColor="@color/black"
+            android:id="@+id/logmessage"
+            android:layout_marginTop="20dp"
+            android:padding="15dp"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:ignore="HardcodedText" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:orientation="horizontal"
+            android:layout_marginTop="20dp"
+            android:gravity="center">
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Yes"
+                android:textAllCaps="false"
+                android:textSize="15sp"
+                android:layout_margin="5dp"
+                android:textColor="@color/white"
+                android:id="@+id/yesbtn"
+                tools:ignore="HardcodedText" />
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="no"
+                android:layout_margin="5dp"
+                android:backgroundTint="#A4A4A4"
+                android:textAllCaps="false"
+                android:textSize="15sp"
+                android:textColor="@color/white"
+                android:id="@+id/nobtn"
+                tools:ignore="HardcodedText" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+
+        </LinearLayout>
+
+
+
+
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>

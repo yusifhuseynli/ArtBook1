@@ -12,33 +12,35 @@ import com.example.myapplication.R
 import javax.inject.Inject
 
 class ImageRecyclerAdapter @Inject constructor(
-    val glide:RequestManager
-) :RecyclerView.Adapter<ImageRecyclerAdapter.ImageViewHolder>(){
-  class ImageViewHolder(itemView: View):RecyclerView.ViewHolder(itemView)
-    private var onItemClickListener:((String)->Unit)?=null
+    val glide: RequestManager
+) : RecyclerView.Adapter<ImageRecyclerAdapter.ImageViewHolder>() {
+    class ImageViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
 
-    private val diffUtil=object : DiffUtil.ItemCallback<String>(){
+    private var onItemClickListener: ((String) -> Unit)? = null
+
+    private val diffUtil = object : DiffUtil.ItemCallback<String>() {
         override fun areItemsTheSame(oldItem: String, newItem: String): Boolean {
-            return oldItem==newItem
+            return oldItem == newItem
         }
 
         override fun areContentsTheSame(oldItem: String, newItem: String): Boolean {
-            return oldItem==newItem
+            return oldItem == newItem
         }
 
     }
-    private val recyclerListDiffer= AsyncListDiffer(this,diffUtil)
+    private val recyclerListDiffer = AsyncListDiffer(this, diffUtil)
 
-    var images:List<String>
+    var images: List<String>
         get() = recyclerListDiffer.currentList
         set(value) = recyclerListDiffer.submitList(value)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ImageViewHolder {
-        val view=LayoutInflater.from(parent.context).inflate(R.layout.image_row,parent,false)
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.image_row, parent, false)
         return ImageViewHolder(view)
     }
-    fun setOnItemClickListener(listener: (String)->Unit){
-        onItemClickListener=listener
+
+    fun setOnItemClickListener(listener: (String) -> Unit) {
+        onItemClickListener = listener
     }
 
     override fun getItemCount(): Int {
@@ -48,8 +50,8 @@ class ImageRecyclerAdapter @Inject constructor(
 
 
     override fun onBindViewHolder(holder: ImageViewHolder, position: Int) {
-    val imageView=holder.itemView.findViewById<ImageView>(R.id.singleArtimageView)
-        val url=images[position]
+        val imageView = holder.itemView.findViewById<ImageView>(R.id.singleArtimageView)
+        val url = images[position]
         holder.itemView.apply {
             glide.load(url).into(imageView)
             setOnClickListener {
