@@ -112,17 +112,22 @@ class ArtProfilFragment : Fragment() {
     private fun getUser() {
         Firebase.firestore.collection("user").document(Firebase.auth.currentUser!!.uid)
             .addSnapshotListener { value, error ->
-                if (value != null) {
-                    val name = value.get("name") as String
-                    val surname = value.get("surname") as String
-                    val phonenumber = value.get("phonenumber") as? String?
-                    val img = value.get("img") as String
-                    binding.edittexName.setText(name)
-                    binding.edittexPhone.setText(phonenumber)
-                    binding.edittexProfileSurname.setText(surname)
-                    Glide.with(requireActivity()).load(img).into(binding.imageProfile)
+                try {
+                    if (value != null) {
+                        val name = value.get("name") as String
+                        val surname = value.get("surname") as String
+                        val phonenumber = value.get("phonenumber") as? String?
+                        val img = value.get("img") as String
+                        binding.edittexName.setText(name)
+                        binding.edittexPhone.setText(phonenumber)
+                        binding.edittexProfileSurname.setText(surname)
+                        Glide.with(requireActivity()).load(img).into(binding.imageProfile)
 
+                    }
+                }catch (e:Exception){
+                    e.printStackTrace()
                 }
+
             }
     }
 
